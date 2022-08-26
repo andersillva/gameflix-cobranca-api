@@ -3,7 +3,7 @@ package br.com.andersillva.gameflixcobrancaapi.messagebroker.outgoing.dto;
 import lombok.Data;
 
 @Data
-public class MensagemPagamentoPedidoRecebidoDTO {
+public class MensagemPedidoPagamentoRegistradoDTO {
 
 	private Long idPedido;
 

@@ -10,19 +10,19 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import br.com.andersillva.gameflixcobrancaapi.messagebroker.outgoing.dto.MensagemPagamentoPedidoRecebidoDTO;
+import br.com.andersillva.gameflixcobrancaapi.messagebroker.outgoing.dto.MensagemPedidoPagamentoRegistradoDTO;
 import br.com.andersillva.gameflixcobrancaapi.messagebroker.outgoing.exception.FalhaSerializacaoMensagemException;
 
 @Component
-public class EventoPagamentoPedidoRegistradoImpl implements EventoPagamentoPedidoRegistrado {
+public class EventoPedidoPagamentoRegistradoImpl implements EventoPedidoPagamentoRegistrado {
 
 	private final KafkaTemplate<String, String> kafkaTemplate;
 	private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
-    @Value("${app.topic.pagamento-registrado}")
+    @Value("${app.topic.pedido-pagamento-registrado}")
     private String PAGAMENTO_REGISTRADO;
 
-    public EventoPagamentoPedidoRegistradoImpl(KafkaTemplate<String, String> kafkaTemplate) {
+    public EventoPedidoPagamentoRegistradoImpl(KafkaTemplate<String, String> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
@@ -30,7 +30,7 @@ public class EventoPagamentoPedidoRegistradoImpl implements EventoPagamentoPedid
 	@Transactional(propagation=Propagation.MANDATORY)
 	public void gerarMensagem(Long idPedido) {
 
-		var mensagemDTO = new MensagemPagamentoPedidoRecebidoDTO();
+		var mensagemDTO = new MensagemPedidoPagamentoRegistradoDTO();
 		mensagemDTO.setIdPedido(idPedido);
 		String mensagem;
 		try {
