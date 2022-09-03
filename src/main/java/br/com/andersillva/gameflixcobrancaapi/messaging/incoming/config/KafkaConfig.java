@@ -1,4 +1,4 @@
-package br.com.andersillva.gameflixcobrancaapi.messagebroker.incoming.config;
+package br.com.andersillva.gameflixcobrancaapi.messaging.incoming.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;

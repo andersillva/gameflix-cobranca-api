@@ -1,4 +1,4 @@
-package br.com.andersillva.gameflixcobrancaapi.messagebroker.incoming;
+package br.com.andersillva.gameflixcobrancaapi.messaging.incoming;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -10,7 +10,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.andersillva.gameflixcobrancaapi.domain.service.CobrancaPedidoService;
-import br.com.andersillva.gameflixcobrancaapi.messagebroker.incoming.dto.MensagemPedidoRecebidoDTO;
+import br.com.andersillva.gameflixcobrancaapi.messaging.incoming.dto.MensagemPedidoRecebidoDTO;
 
 @Component
 public class EventoPedidoRecebido {
@@ -28,7 +28,7 @@ public class EventoPedidoRecebido {
     public void consume(@Payload String message, Acknowledgment ack) throws JsonProcessingException {
 
         var mensagemPedidoRecebidoDTO = mapper.readValue(message, MensagemPedidoRecebidoDTO.class);
-        cobrancaPedidoService.cobrarPedido(mensagemPedidoRecebidoDTO.getId());
+        cobrancaPedidoService.cobrarPedido(mensagemPedidoRecebidoDTO.converter());
         ack.acknowledge();
 
     }

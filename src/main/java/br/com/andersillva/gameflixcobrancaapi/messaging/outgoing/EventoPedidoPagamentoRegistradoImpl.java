@@ -1,4 +1,4 @@
-package br.com.andersillva.gameflixcobrancaapi.messagebroker.outgoing;
+package br.com.andersillva.gameflixcobrancaapi.messaging.outgoing;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -10,8 +10,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import br.com.andersillva.gameflixcobrancaapi.messagebroker.outgoing.dto.MensagemPedidoPagamentoRegistradoDTO;
-import br.com.andersillva.gameflixcobrancaapi.messagebroker.outgoing.exception.FalhaSerializacaoMensagemException;
+import br.com.andersillva.gameflixcobrancaapi.domain.model.Cobranca;
+import br.com.andersillva.gameflixcobrancaapi.messaging.outgoing.dto.MensagemPedidoPagamentoRegistradoDTO;
+import br.com.andersillva.gameflixcobrancaapi.messaging.outgoing.exception.FalhaSerializacaoMensagemException;
 
 @Component
 public class EventoPedidoPagamentoRegistradoImpl implements EventoPedidoPagamentoRegistrado {
@@ -28,10 +29,9 @@ public class EventoPedidoPagamentoRegistradoImpl implements EventoPedidoPagament
 
 	@Override
 	@Transactional(propagation=Propagation.MANDATORY)
-	public void gerarMensagem(Long idPedido) {
+	public void gerarMensagem(Cobranca cobranca) {
 
-		var mensagemDTO = new MensagemPedidoPagamentoRegistradoDTO();
-		mensagemDTO.setIdPedido(idPedido);
+		var mensagemDTO = new MensagemPedidoPagamentoRegistradoDTO(cobranca);
 		String mensagem;
 		try {
 			mensagem = objectMapper.writeValueAsString(mensagemDTO);
