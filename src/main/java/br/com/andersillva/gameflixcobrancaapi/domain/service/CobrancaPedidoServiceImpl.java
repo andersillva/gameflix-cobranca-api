@@ -37,6 +37,7 @@ public class CobrancaPedidoServiceImpl implements CobrancaPedidoService {
 					.orElseThrow(() -> new RegistroNaoEncontradoException("Produto não encontrado."));
 			item.setNome(produto.getNome());
 			item.setPreco(produto.getPreco());
+			item.setTipo(produto.getTipo());
 		});
 
 		eventoPedidoPagamentoRegistrado.gerarMensagem(cobranca);
