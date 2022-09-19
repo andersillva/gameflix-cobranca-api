@@ -31,7 +31,7 @@ public class EventoPedidoPagamentoRegistradoImpl implements EventoPedidoPagament
 	@Transactional(propagation=Propagation.MANDATORY)
 	public void gerarMensagem(Cobranca cobranca) {
 
-		var mensagemDTO = new MensagemPedidoPagamentoRegistradoDTO(cobranca);
+		MensagemPedidoPagamentoRegistradoDTO mensagemDTO = new MensagemPedidoPagamentoRegistradoDTO(cobranca);
 		String mensagem;
 		try {
 			mensagem = objectMapper.writeValueAsString(mensagemDTO);

@@ -27,7 +27,7 @@ public class EventoPedidoRecebido {
     @KafkaListener(topics = "${app.topic.pedido-recebido}")
     public void consume(@Payload String message, Acknowledgment ack) throws JsonProcessingException {
 
-        var mensagemPedidoRecebidoDTO = mapper.readValue(message, MensagemPedidoRecebidoDTO.class);
+    	MensagemPedidoRecebidoDTO mensagemPedidoRecebidoDTO = mapper.readValue(message, MensagemPedidoRecebidoDTO.class);
         cobrancaPedidoService.cobrarPedido(mensagemPedidoRecebidoDTO.converter());
         ack.acknowledge();
 

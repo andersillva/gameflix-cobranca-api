@@ -23,7 +23,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 	@Override
 	public List<ProdutoDTO> obterProdutos(List<Long> ids) {
 
-		var restTemplate = new RestTemplate();
+		RestTemplate restTemplate = new RestTemplate();
 
 		String url = catalogoUrlBase + "?ids={lista}";
 		String lista = ids.stream().map(id -> id.toString()).collect(Collectors.joining(","));
